@@ -1,75 +1,102 @@
 ##============================================================================##
-#  ad_manager.gd — Rewarded ads interface (AdMob via Poing Studios)             #
-#  Adapted from: Document "Monétisation AAA"                                   #
+#  ad_manager.gd — Ad manager (AdMob / Unity Ads / ironSource)                   #
+#  Pattern: Singleton autoload for interstitial/ rewarded video                #
 ##============================================================================##
 
 class_name AdManager
 extends Node
 
-signal rewarded_completed(reward_type: String, reward_amount: int)
-signal ad_failed(error_code: int)
-signal consent_updated(granted: bool)
+signal ad_loaded(ad_type: String)
+signal ad_failed(ad_type: String, error: String)
+signal ad_shown(ad_type: String)
+signal ad_closed(ad_type: String)
+signal rewarded_video_completed(reward: Dictionary)
 
-enum RewardType {
-	NANOS = 25,
-	XP_BOOST = 3600,
-	BATTLE_PASS_SKIP = 1,
-}
-
-var _consent_granted: bool = false
+var _initialized: bool = false
+var _ad_provider: String = "stub"  # "admob", "unity", "ironsource", "stub"
+var _interstitial_ready: bool = false
 var _rewarded_ready: bool = false
-var _daily_claim_count: int = 0
-var _last_claim_date: String = ""
+var _last_reward: Dictionary = {}
+
 
 func _ready() -> void:
-	if not _check_daily_limit():
-		return
-	# Initialize AdMob plugin (Poing Studios)
-	# AdMobPlugin.init_ads()
-	# AdMobPlugin.load_rewarded()
+	# Initialize ad provider based on platform
+	# In Phase 7, call real SDK init:
+	# if OS.get_name() == "Android":
+	#     _ad_provider = "admob"
+	#     AdMob.initialize("YOUR_APP_ID")
+	# elif OS.get_name() == "iOS":
+	#     _ad_provider = "unity"
+	#     UnityAds.initialize("YOUR_GAME_ID")
+	# else:
+	#     _ad_provider = "stub"
+	_ad_provider = "stub"
+	_initialized = true
 
-func request_consent() -> void:
-	if OS.has_feature("android") or OS.has_feature("ios"):
-		# UMP consent dialog
-		# UMP.request_consent()
-		pass
-	else:
-		_consent_granted = true
-		consent_updated.emit(true)
 
-func show_rewarded() -> bool:
-	if not _consent_granted:
-		ad_failed.emit(-1)
-		return false
-	if not _check_daily_limit():
-		EventBus.ui_screen_requested.emit("reward_limit", {})
-		return false
-	if not _rewarded_ready:
-		ad_failed.emit(-2)
-		return false
+## Load an interstitial ad
+func load_interstitial(ad_id: String = "default") -> void:
+	# STUB: In Phase 7, call SDK
+	_interstitial_ready = true
+	ad_loaded.emit("interstitial")
 
-	# AdMobPlugin.show_rewarded()
-	# On completion callback:
-	# rewarded_completed.emit("nanos", RewardType.NANOS)
-	_daily_claim_count += 1
-	_save_daily_count()
+
+## Show an interstitial ad
+func show_interstitial(ad_id: String = "default") -> bool:
+	if not _interstitial_ready:
+		return false
+	# STUB: In Phase 7, call SDK
+	# var result = await AdMob.show_interstitial_async()
+	# if result:
+	#     ad_shown.emit("interstitial")
+	#     ad_closed.emit("interstitial")
+	#     return true
+	ad_shown.emit("interstitial")
+	ad_closed.emit("interstitial")
 	return true
 
-func _check_daily_limit() -> bool:
-	var today = Time.get_date_string_from_system()
-	if _last_claim_date != today:
-		_last_claim_date = today
-		_daily_claim_count = 0
-	return _daily_claim_count < 3  # 3 rewarded ads per day max
 
-func _save_daily_count() -> void:
-	var config = ConfigFile.new()
-	config.set_value("ads", "last_claim_date", _last_claim_date)
-	config.set_value("ads", "daily_count", _daily_claim_count)
-	config.save("user://ad_limit.cfg")
+## Load a rewarded video
+func load_rewarded_video(ad_id: String = "default") -> void:
+	# STUB: In Phase 7, call SDK
+	_rewarded_ready = true
+	ad_loaded.emit("rewarded")
 
-func _load_daily_count() -> void:
-	var config = ConfigFile.new()
-	if config.load("user://ad_limit.cfg") == OK:
-		_last_claim_date = config.get_value("ads", "last_claim_date", "")
-		_daily_claim_count = config.get_value("ads", "daily_count", 0)
+
+## Show a rewarded video and return reward
+func show_rewarded_video(ad_id: String = "default") -> bool:
+	if not _rewarded_ready:
+		return false
+	# STUB: In Phase 7, call SDK
+	# var result = await AdMob.show_rewarded_video_async()
+	# if result:
+	#     rewarded_video_completed.emit(result.reward)
+	#     return true
+	rewarded_video_completed.emit({"coins": 100, "gems": 5})
+	return true
+
+
+## Check if an ad is ready
+func is_interstitial_ready() -> bool:
+	return _interstitial_ready
+
+
+func is_rewarded_ready() -> bool:
+	return _rewarded_ready
+
+
+## Show a banner ad (for mobile)
+func show_banner(ad_id: String = "default") -> void:
+	# STUB: In Phase 7, call SDK
+	pass
+
+
+## Hide banner
+func hide_banner() -> void:
+	# STUB: In Phase 7, call SDK
+	pass
+
+
+## Skip ad (for testing)
+func skip_ad() -> void:
+	ad_closed.emit("interstitial")

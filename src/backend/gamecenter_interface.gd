@@ -1,49 +1,127 @@
 ##============================================================================##
-#  gamecenter_interface.gd — Apple Game Center (stub)                          #
-#  Adapted from: Document "Services Sociaux Natifs"                          #
+#  gamecenter_interface.gd — Apple Game Center interface                          #
+#  Phase 7: Backend - iOS platform services                                     #
 ##============================================================================##
 
 class_name GameCenterInterface
 extends Node
 
-signal auth_success(player_id: String, display_name: String, token: String)
-signal auth_failed(error_code: int, message: String)
-signal sign_out_completed
+signal authenticated(player: Dictionary)
+signal authentication_failed(error: String)
+signal achievement_unlocked(achievement_id: String)
+signal leaderboard_submitted(leaderboard_id: String, score: int)
+signal match_started(match: Dictionary)
+signal match_ended(match: Dictionary)
 
-var is_authenticated: bool = false
-var player_id: String = ""
-var display_name: String = ""
+var _is_authenticated: bool = false
+var _player_id: String = ""
+var _player_alias: String = ""
+var _player_avatar: Texture2D = null
 
+
+func _ready() -> void:
+	# STUB: Phase 7 - use Apple GameKit on iOS
+	# GameCenter.authenticate()
+	pass
+
+
+## Authenticate the local player
 func authenticate() -> void:
-	if not OS.has_feature("ios"):
-		auth_failed.emit(-1, "Game Center only available on iOS")
-		return
+	# STUB: In Phase 7:
+	# GameCenter.authenticate()
+	# Simulate success
+	_is_authenticated = true
+	_player_id = "GC_player_123"
+	_player_alias = "Player"
+	authenticated.emit({
+		"player_id": _player_id,
+		"alias": _player_alias
+	})
 
-	# In Phase 7, use godot-ios-plugins:
-	# GameCenterPlugin.authenticate_local_player()
-	# On success:
-	# player_id = GameCenterPlugin.get_local_player_id()
-	# display_name = GameCenterPlugin.get_local_player_name()
-	# token = GameCenterPlugin.get_sc_player_id_token()
 
-	# Stub:
-	is_authenticated = true
-	player_id = "stub_gc_%d" % randi()
-	display_name = "Gamer"
-	token = "stub_gamecenter_token"
-	auth_success.emit(player_id, display_name, token)
+## Check if player is authenticated
+func is_authenticated() -> bool:
+	return _is_authenticated
 
-func sign_out() -> void:
-	is_authenticated = false
-	player_id = ""
-	display_name = ""
-	sign_out_completed.emit()
 
-func is_authenticated_player() -> bool:
-	return is_authenticated
-
+## Get player info
 func get_player_id() -> String:
-	return player_id
+	return _player_id
 
-func get_display_name() -> String:
-	return display_name
+
+func get_player_alias() -> String:
+	return _player_alias
+
+
+## Unlock achievement
+func unlock_achievement(achievement_id: String) -> void:
+	if not _is_authenticated:
+		return
+	# STUB: In Phase 7:
+	# GameCenter.submit_achievement(achievement_id, 100.0)
+	achievement_unlocked.emit(achievement_id)
+
+
+## Submit score to leaderboard
+func submit_score(leaderboard_id: String, score: int) -> void:
+	if not _is_authenticated:
+		return
+	# STUB: In Phase 7:
+	# GameCenter.submit_score(leaderboard_id, score)
+	leaderboard_submitted.emit(leaderboard_id, score)
+
+
+## Show Game Center UI
+func show_game_center() -> void:
+	if not _is_authenticated:
+		return
+	# STUB: In Phase 7:
+	# GameCenter.show_game_center()
+	pass
+
+
+## Show achievements
+func show_achievements() -> void:
+	if not _is_authenticated:
+		return
+	# STUB: In Phase 7:
+	# GameCenter.show_achievements()
+	pass
+
+
+## Show leaderboard
+func show_leaderboard(leaderboard_id: String) -> void:
+	if not _is_authenticated:
+		return
+	# STUB: In Phase 7:
+	# GameCenter.show_leaderboard(leaderboard_id)
+	pass
+
+
+## Find match (turn-based or real-time)
+func find_match(match_type: String = "real-time") -> void:
+	if not _is_authenticated:
+		return
+	# STUB: In Phase 7:
+	# GameCenter.find_match(match_type)
+	match_started.emit({"type": match_type, "id": "stub_match_123"})
+
+
+## End match and report results
+func end_match(match: Dictionary, results: Array) -> void:
+	if not _is_authenticated:
+		return
+	# STUB: In Phase 7:
+	# GameCenter.end_match(match, results)
+	match_ended.emit(match)
+
+
+func _on_authentication_complete(player: Dictionary) -> void:
+	_is_authenticated = true
+	_player_id = player.get("player_id", "")
+	_player_alias = player.get("alias", "")
+	authenticated.emit(player)
+
+
+func _on_authentication_failed(error: String) -> void:
+	authentication_failed.emit(error)
