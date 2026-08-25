@@ -32,11 +32,20 @@ enum TargetingMode {
 @export var is_heal: bool = false
 @export var is_stun: bool = false
 
+## Drag-to-aim properties
+@export var drag_max_time: float = 2.0
+@export var drag_max_range: float = 800.0
+
 ## Runtime state
 var _current_cooldown: float = 0.0
 var _is_charging: bool = false
+var _charge_start_time: float = 0.0
+var _charge_start_position: Vector2 = Vector2.ZERO
+var _current_direction: Vector2 = Vector2.RIGHT
 
-## Cooldown management
+func _ready() -> void:
+	_is_charging = false
+
 func update_cooldown(delta: float) -> void:
 	if _current_cooldown > 0:
 		_current_cooldown = max(0.0, _current_cooldown - delta)
@@ -60,57 +69,95 @@ func execute(caster: BaseHero, target_position: Vector2,
 
 	_is_charging = true
 	_current_cooldown = cooldown
+	_charge_start_time = Time.get_ticks_msec()
 
-	if is_hitscan:
-		# Instant damage application
-		_apply_hitscan(caster, target_position, target_hero)
+	if targeting_mode == TargetingMode.DRAG_TO_AIM:
+		# For drag-to-aim, we need the charge to persist until release
+		# The actual firing happens in _on_skill_released
+		_charge_start_position = caster.global_position
+		_current_direction = (target_position - _charge_start_position).normalized()
+		_apply_cast_fx(caster, target_position)
 	else:
-		# Spawn projectile
-		_spawn_projectile(caster, target_position)
+		# Normal execution - instant cast or projectile spawn
+		if is_hitscan:
+			_apply_hitscan(caster, target_position, target_hero)
+		else:
+			_spawn_projectile(caster, target_position)
 
 	# Visual feedback
 	_play_cast_fx(caster, target_position)
 
-	_is_charging = false
+	# For DRAG_TO_AIM: don't reset _is_charging yet - it's set externally on release
+	if targeting_mode != TargetingMode.DRAG_TO_AIM:
+		_is_charging = false
+
 	return true
 
-## Apply damage to target (hitscan)
-func _apply_hitscan(caster: BaseHero, target_position: Vector2,
-		target_hero: BaseHero) -> void:
+## Called when the drag gesture ends (mouse released / finger lifted).
+## Fires the skill with the accumulated aim direction.
+func on_skill_released(caster: BaseHero, release_position: Vector2) -> void:
+	if targeting_mode == TargetingMode.DRAG_TO_AIM and _is_charging:
+		var charge_duration = (Time.get_ticks_msec() - _charge_start_time) / 1000.0
+		var charge_factor = clamp(charge_duration / drag_max_time, 0.0, 1.0)
+		
+		# Calculate final direction from start position to release position
+		var final_dir: Vector2 = (release_position - _charge_start_position).normalized()
+		
+		# Scale damage/knockback by charge factor if desired
+		var final_damage: int = damage
+		var final_knockback: Vector2 = knockback
+		if is_stun:
+			final_knockback = Vector2.ZERO
+		
+		# Fire the skill
+		if is_hitscan:
+			_apply_hitscan_with_dir(caster, final_dir, target_hero, final_damage, final_knockback)
+		else:
+			_spawn_projectile_with_dir(caster, final_dir, charge_factor)
+		
+		# Reset charge state
+		_is_charging = false
+	else:
+		# Non-drag mode - just reset
+		_is_charging = false
+
+	_play_cast_fx(caster, caster.global_position if caster else Vector2.ZERO)
+
+
+## Apply damage to target (hitscan) with explicit direction
+func _apply_hitscan_with_dir(caster: BaseHero, direction: Vector2,
+		target_hero: BaseHero, amount: int = -1, knockback: Vector2 = Vector2.ZERO) -> void:
 	if target_hero:
-		# Direct damage to hero
+		var dmg = amount != -1 and amount or damage
 		var payload: DamagePayload = DamagePayload.new()
 		payload.shooter_id = caster.team_id
 		payload.shooter_team = caster.team_id
-		payload.amount = damage
+		payload.amount = dmg
 		payload.damage_type = damage_type
 		payload.knockback = knockback
 		payload.is_critical = false
 		payload.hit_position = target_hero.global_position
 		payload.timestamp = Time.get_ticks_msec()
 		target_hero.hurtbox.hurt_received.emit(payload)
-	else:
-		# Hitscan raycast for environment
-		# (placeholder - Phase 4 doesn't need env damage)
-		pass
 
-## Spawn a projectile (non-hitscan)
-func _spawn_projectile(caster: BaseHero, target_position: Vector2) -> void:
+
+## Spawn a projectile (non-hitscan) with explicit direction and charge factor
+func _spawn_projectile_with_dir(caster: BaseHero, direction: Vector2,
+		charge_factor: float) -> void:
 	if projectile_scene == null:
 		return
 	var projectile = projectile_scene.instantiate()
 	if projectile is Node2D:
 		projectile.global_position = caster.global_position
-		# Set up direction
-		var dir: Vector2 = (target_position - caster.global_position).normalized()
-		projectile.set("direction", dir)
-		projectile.set("speed", 400.0)
+		projectile.set("direction", direction)
+		projectile.set("speed", 400.0 + charge_factor * 200.0)  # faster if charged
 		projectile.set("damage", damage)
 		projectile.set("damage_type", damage_type)
 		projectile.set("shooter_team", caster.team_id)
 		caster.get_parent().add_child(projectile)
 
-## Visual feedback
+
+## Visual feedback during cast
 func _play_cast_fx(caster: BaseHero, target_position: Vector2) -> void:
 	if caster:
 		# Screen shake on cast
@@ -128,3 +175,10 @@ func _play_cast_fx(caster: BaseHero, target_position: Vector2) -> void:
 			)
 			caster.add_child(reset_timer)
 			reset_timer.start()
+
+
+func _physics_process(delta: float) -> void:
+	# Handle drag charging - called from hero input processing
+	if _is_charging and targeting_mode == TargetingMode.DRAG_TO_AIM:
+		# Could update a UI indicator here
+		pass

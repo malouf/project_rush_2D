@@ -22,6 +22,7 @@ GameManager="res://managers/game_manager.gd"
 EventBus="res://managers/event_bus.gd"
 GameNetwork="res://managers/game_network.gd"
 Analytics="res://managers/analytics.gd"
+Accessibility="res://managers/accessibility.gd"
 
 [debug]
 
