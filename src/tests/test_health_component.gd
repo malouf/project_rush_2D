@@ -2,7 +2,7 @@
 #  test_health_component.gd — GUT test for HealthComponent                    #
 ##============================================================================##
 
-extends "res://addons/gut/gut_test_case.gd"
+extends GutTest
 
 var health_comp: HealthComponent
 
