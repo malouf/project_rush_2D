@@ -1,0 +1,19 @@
+# Godot
+.import/
+.godot/
+*.godot.import
+godot_*.log
+export.cfg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vs/
+.idea/
+*.csproj
+*.sln
+
+# Editor
+.editor/

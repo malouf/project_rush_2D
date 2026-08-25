@@ -1,0 +1,108 @@
+; Engine configuration file for Project Rush 2D
+; Auto-generated from adapted librerama + isometric demo settings
+
+config_version = 5
+
+[application]
+config/name = "Project Rush 2D"
+config/description = "Mobile 2D isometric hero-shooter (4v4) — Phase 1 scaffold"
+config/features = PackedStringArray("4.7", "Mobile", "2D", "Isometric")
+run/main_scene = "res://scenes/main.tscn"
+config/icon = "res://assets/themes/icon.png"
+
+[autoload]
+GameManager = "res://managers/game_manager.gd"
+EventBus = "res://managers/event_bus.gd"
+GameNetwork = "res://managers/game_network.gd"
+Analytics = "res://managers/analytics.gd"
+
+[debug]
+gdscript/warnings/untyped_declaration = 1
+gdscript/warnings/unsafe_cast = 1
+
+[display]
+window/size/viewport_width = 1920
+window/size/viewport_height = 1080
+window/stretch/mode = "canvas_items"
+window/stretch/aspect = "keep_height"
+
+[physics]
+common/physics_ticks_per_second = 60
+common/physics_interpolation = true
+
+[rendering]
+renderer/rendering_method = "mobile"
+renderer/rendering_method.mobile = "gl_compatibility"
+rendering/quality/2d/use_pixel_snap = false
+
+[game_settings]
+pause_focus_lost = true
+mute_focus_lost = false
+show_community_warning = true
+
+[input]
+move_up = {
+	"deadzone": 0.2,
+	"events": [
+		Object(InputEventKey,"keycode":87,"pressed":false),
+		Object(InputEventKey,"physical_keycode":87,"pressed":false),
+		Object(InputEventJoypadMotion,"axis":1,"axis_value":-1.0),
+	]
+}
+move_down = {
+	"deadzone": 0.2,
+	"events": [
+		Object(InputEventKey,"keycode":83,"pressed":false),
+		Object(InputEventJoypadMotion,"axis":1,"axis_value":1.0),
+	]
+}
+move_left = {
+	"deadzone": 0.2,
+	"events": [
+		Object(InputEventKey,"keycode":65,"pressed":false),
+		Object(InputEventJoypadMotion,"axis":0,"axis_value":-1.0),
+	]
+}
+move_right = {
+	"deadzone": 0.2,
+	"events": [
+		Object(InputEventKey,"keycode":68,"pressed":false),
+		Object(InputEventJoypadMotion,"axis":0,"axis_value":1.0),
+	]
+}
+tap_to_cast = {
+	"deadzone": 0.1,
+	"events": [
+		Object(InputEventMouseButton,"button_index":1,"pressed":false),
+		Object(InputEventScreenTouch,"pressed":false),
+	]
+}
+drag_to_aim = {
+	"deadzone": 0.1,
+	"events": [
+		Object(InputEventMouseMotion,"relative":Vector2(0,0)),
+		Object(InputEventScreenDrag,"relative":Vector2(0,0)),
+	]
+}
+ui_accept = {
+	"deadzone": 0.5,
+	"events": [
+		Object(InputEventKey,"keycode":4194309,"pressed":false),
+		Object(InputEventJoypadButton,"button_index":0,"pressed":true),
+	]
+}
+ui_cancel = {
+	"deadzone": 0.5,
+	"events": [
+		Object(InputEventKey,"keycode":4194305,"pressed":false),
+		Object(InputEventJoypadButton,"button_index":1,"pressed":true),
+	]
+}
+
+[layer_names]
+2d_physics/dangerous = "Hero"
+2d_physics/hurtbox = "HurtBox"
+2d_physics/hitbox = "HitBox"
+2d_render/heroes = "Heroes"
+2d_render/effects = "Effects"
+2d_render/ui = "UI"
