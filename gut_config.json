@@ -1,0 +1,30 @@
+{
+  "ignore_file_pattern": [
+    "*.import"
+  ],
+  "include_subdirs": true,
+  "tests": [
+    "res://src/tests/"
+  ],
+  "dir_for_tests": "res://src/tests/",
+  "should_maximize": false,
+  "goto_line": true,
+  "hide_orphans": false,
+  "should_print": true,
+  "print_after_source": true,
+  "unit_test_count": true,
+  "use_colors": true,
+  "errors_do_not_fail": false,
+  "fail_on_missing_test_classes": false,
+  "inner_class_separator": "",
+  "log_level": 1,
+  "run_on_load": false,
+  "should_exit": false,
+  "should_exit_on_success": false,
+  "treat_error_as_failure": false,
+  "treat_warning_as_failure": false,
+  "warnings_as_errors": false,
+  "tests_should_fail_if_throw_error": true,
+  "pause_on_fail": false,
+  "generate_py_for_ignore": true
+}

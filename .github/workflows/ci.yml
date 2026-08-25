@@ -1,0 +1,51 @@
+name: CI - Build & Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Install Godot
+        run: |
+          wget -q https://downloads.tuxfamily.org/godotengine/4.7.1/Godot_v4.7.1-stable_linux_x86_64.zip
+          unzip -q Godot_v4.7.1-stable_linux_x86_64.zip
+          mv Godot_v4.7.1-stable_linux_x86_64 godot
+          chmod +x godot
+          echo "GODOT_PATH=$(pwd)/godot" >> $GITHUB_ENV
+      
+      - name: Run GUT tests
+        run: |
+          ./godot --headless -s addons/gut/gut.gd -- -S src/tests/ -G -G --include=src/tests/ --exclude=addons/gut/ --exit
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Install Godot
+        run: |
+          wget -q https://downloads.tuxfamily.org/godotengine/4.7.1/Godot_v4.7.1-stable_linux_x86_64.zip
+          unzip -q Godot_v4.7.1-stable_linux_x86_64.zip
+          mv Godot_v4.7.1-stable_linux_x86_64 godot
+          chmod +x godot
+          echo "GODOT_PATH=$(pwd)/godot" >> $GITHUB_ENV
+      
+      - name: Build HTML5
+        run: |
+          ./godot --headless --export-html5 "export/html5" 2>&1 | tail -20
+      
+      - name: Upload HTML5 build
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-rush-2d-html5
+          path: export/html5/
