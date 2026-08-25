@@ -8,8 +8,8 @@ extends Node
 @export var local_hero: BaseHero
 
 ## Skill slots
-@onready var skill_slot_1: BaseSkill = preload("res://src/skills/melee_slash.tres")
-@onready var skill_slot_2: BaseSkill = preload("res://src/skills/fireball.tres")
+@onready var skill_slot_1: BaseSkill = null
+@onready var skill_slot_2: BaseSkill = null
 
 ## Cast state
 var _is_casting: bool = false
@@ -24,7 +24,7 @@ var _current_cast_dir: Vector2 = Vector2.RIGHT
 @export var aim_assist_max_range: float = 600.0
 
 ## UI references (set by parent scene)
-@onready var aim_indicator: AimIndicator = get_node_or_null("/root/World/UI/AimIndicator")
+@onready var aim_indicator = get_node_or_null("/root/World/UI/AimIndicator")
 
 
 func _ready() -> void:
@@ -132,7 +132,7 @@ func _apply_aim_assist(direction: Vector2) -> Vector2:
 	# Find nearest enemy in the cone of aim_assist_snap_angle
 	var best_target: BaseHero = null
 	var best_dot: float = cos(aim_assist_snap_angle)
-	var space = get_world_2d().direct_space_state
+	var space = get_viewport().get_world_2d().direct_space_state
 	var query = PhysicsPointQueryParameters2D.new()
 	query.position = local_hero.global_position + direction * aim_assist_max_range * 0.5
 	query.collision_mask = 1  # hero body layer

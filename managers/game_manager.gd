@@ -3,7 +3,7 @@
 #  Adapted from: librerama managers/game_manager/game_manager.gd               #
 ##============================================================================##
 
-class_name GameManager
+class_name GameManagerBase
 extends CanvasLayer
 
 ## Singleton access
@@ -44,12 +44,13 @@ var settings: Dictionary = {
 var _switching_scene: bool = false
 var _current_scene_name: String = ""
 
-@onready var _fade_rect: ColorRect = $Fade
+@onready var _fade_rect: ColorRect = $Fade if has_node("Fade") else null
 
 func _ready() -> void:
 	instance = self
-	_fade_rect.modulate.a = 0.0
-	_fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if _fade_rect:
+		_fade_rect.modulate.a = 0.0
+		_fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	load_settings()
 	apply_settings()
 
@@ -90,12 +91,17 @@ func _deferred_switch(path: String) -> void:
 		get_tree().current_scene = get_tree().current_scene if get_tree().current_scene == null else get_tree().current_scene
 
 func fade_in() -> void:
+	if not _fade_rect:
+		emit_signal("scene_switched")
+		return
 	_fade_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	var tween = create_tween().set_parallel()
 	tween.tween_property(_fade_rect, ^"modulate:a", 1.0, FADE_SPEED)
 	tween.chain().tween_callback(emit_signal.bind("scene_switched"))
 
 func fade_out() -> void:
+	if not _fade_rect:
+		return
 	_fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var tween = create_tween().set_parallel()
 	tween.tween_property(_fade_rect, ^"modulate:a", 0.0, FADE_SPEED)
@@ -136,3 +142,8 @@ func apply_settings() -> void:
 		_apply_color_blind_filter()
 
 	emit_signal("settings_applied")
+
+
+func _apply_color_blind_filter() -> void:
+	# Placeholder - implement color blind filter via shader
+	pass

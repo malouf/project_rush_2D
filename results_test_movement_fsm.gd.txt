@@ -1,0 +1,255 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+WARNING: res://addons/gut/GutScene.tscn:3 - ext_resource, invalid UID: uid://bw7tukh738kw1 - using text path instead: res://addons/gut/GutScene.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/GutScene.tscn:4 - ext_resource, invalid UID: uid://duxblir3vu8x7 - using text path instead: res://addons/gut/gui/NormalGui.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/NormalGui.tscn:3 - ext_resource, invalid UID: uid://cstkhwkpajvqu - using text path instead: res://addons/gut/gui/GutSceneTheme.tres
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/GutSceneTheme.tres:3 - ext_resource, invalid UID: uid://c6c7gnx36opr0 - using text path instead: res://addons/gut/fonts/AnonymousPro-Regular.ttf
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Cannot open file 'res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata'.
+   at: load (core/io/resource_format_binary.cpp:1156)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Failed loading resource: res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Failed loading resource: res://addons/gut/fonts/AnonymousPro-Regular.ttf.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: res://addons/gut/gui/GutSceneTheme.tres:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://addons/gut/fonts/AnonymousPro-Regular.ttf.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: res://addons/gut/gui/GutSceneTheme.tres:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://addons/gut/fonts/AnonymousPro-Regular.ttf.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Failed loading resource: res://addons/gut/gui/GutSceneTheme.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/NormalGui.tscn:4 - ext_resource, invalid UID: uid://blvhsbnsvfyow - using text path instead: res://addons/gut/gui/gut_gui.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/NormalGui.tscn:5 - ext_resource, invalid UID: uid://bnh0lslf4yh87 - using text path instead: res://addons/gut/fonts/CourierPrime-Regular.ttf
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/NormalGui.tscn:6 - ext_resource, invalid UID: uid://bvrqqgjpyouse - using text path instead: res://addons/gut/gui/ResizeHandle.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/ResizeHandle.tscn:3 - ext_resource, invalid UID: uid://duf6rfdqr6yoc - using text path instead: res://addons/gut/gui/ResizeHandle.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: res://addons/gut/gui/NormalGui.tscn:12 - Parse Error: [ext_resource] referenced non-existent resource at: res://addons/gut/gui/GutSceneTheme.tres.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/GutScene.tscn:5 - ext_resource, invalid UID: uid://cnqqdfsn80ise - using text path instead: res://addons/gut/gui/MinGui.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/MinGui.tscn:3 - ext_resource, invalid UID: uid://cstkhwkpajvqu - using text path instead: res://addons/gut/gui/GutSceneTheme.tres
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/GutSceneTheme.tres:3 - ext_resource, invalid UID: uid://c6c7gnx36opr0 - using text path instead: res://addons/gut/fonts/AnonymousPro-Regular.ttf
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Cannot open file 'res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata'.
+   at: load (core/io/resource_format_binary.cpp:1156)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Failed loading resource: res://.godot/imported/AnonymousPro-Regular.ttf-856c843fd6f89964d2ca8d8ff1724f13.fontdata.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Failed loading resource: res://addons/gut/fonts/AnonymousPro-Regular.ttf.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: res://addons/gut/gui/GutSceneTheme.tres:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://addons/gut/fonts/AnonymousPro-Regular.ttf.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: res://addons/gut/gui/GutSceneTheme.tres:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://addons/gut/fonts/AnonymousPro-Regular.ttf.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: Failed loading resource: res://addons/gut/gui/GutSceneTheme.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/MinGui.tscn:4 - ext_resource, invalid UID: uid://bnh0lslf4yh87 - using text path instead: res://addons/gut/fonts/CourierPrime-Regular.ttf
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/MinGui.tscn:5 - ext_resource, invalid UID: uid://blvhsbnsvfyow - using text path instead: res://addons/gut/gui/gut_gui.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/MinGui.tscn:6 - ext_resource, invalid UID: uid://bvrqqgjpyouse - using text path instead: res://addons/gut/gui/ResizeHandle.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+ERROR: res://addons/gut/gui/MinGui.tscn:13 - Parse Error: [ext_resource] referenced non-existent resource at: res://addons/gut/gui/GutSceneTheme.tres.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:54)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/RunExternally.tscn:3 - ext_resource, invalid UID: uid://bi8pg352un4om - using text path instead: res://addons/gut/gui/RunExternally.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @static_initializer (res://addons/gut/utils.gd:59)
+       [1] _static_init (res://addons/gut/gut_loader.gd:40)
+       [2] @static_initializer (res://addons/gut/gut_loader.gd:1)
+       [3] _init (res://addons/gut/gut_cmdln.gd:24)
+WARNING: res://addons/gut/gui/GutRunner.tscn:3 - ext_resource, invalid UID: uid://eg8k46gd42a4 - using text path instead: res://addons/gut/gui/GutRunner.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @implicit_new (res://addons/gut/cli/gut_cli.gd:5)
+       [1] _init (res://addons/gut/gut_cmdln.gd:36)
+WARNING: res://addons/gut/gui/GutRunner.tscn:4 - ext_resource, invalid UID: uid://m28heqtswbuq - using text path instead: res://addons/gut/GutScene.tscn
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] @implicit_new (res://addons/gut/cli/gut_cli.gd:5)
+       [1] _init (res://addons/gut/gut_cmdln.gd:36)
+---  GUT  ---
+[INFO]:  using [C:/Users/yammouni/AppData/Roaming/Godot/app_userdata/Project Rush 2D] for temporary output.
+Godot version:  4.7.0
+GUT version:  9.7.1
+
+
+res://src/tests/test_movement_fsm.gd
+* test_state_changed_signal
+    [Failed]:  [-1] expected to equal [0]:  
+      at line 58
+    [Failed]:  [-1] expected to equal [1]:  
+      at line 59
+8/9 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+res://src/tests/test_movement_fsm.gd
+- test_state_changed_signal
+    [Failed]:  [-1] expected to equal [0]:  
+          at line 58
+    [Failed]:  [-1] expected to equal [1]:  
+          at line 59
+
+Totals
+------
+Scripts               1
+Tests                 9
+Passing Tests         8
+Failing Tests         1
+Asserts           10/12
+Time              0.384s
+
+
+---- 1 failing tests ----
+

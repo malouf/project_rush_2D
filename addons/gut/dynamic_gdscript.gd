@@ -1,4 +1,3 @@
-@tool
 var default_script_name_no_extension = 'gut_dynamic_script'
 var default_script_resource_path = 'res://addons/gut/not_a_real_file/'
 var default_script_extension = "gd"

@@ -3,7 +3,7 @@
 #  Provides high contrast, font scaling, screen reader labels                  #
 ##============================================================================##
 
-class_name AccessibilityManager
+class_name AccessibilityManagerBase
 extends Node
 
 signal high_contrast_changed(enabled: bool)
@@ -103,15 +103,17 @@ func _apply_palette_to_node(node: Node) -> void:
 func _load_settings() -> void:
 	var save = FileAccess.open("user://accessibility.save", FileAccess.READ)
 	if save:
-		_high_contrast = save.get_line().to_bool()
-		_font_scale = save.get_line().to_float()
-		_screen_reader_enabled = save.get_line().to_bool()
+		var line = save.get_line()
+		_high_contrast = line == "true" or line == "1" or line == "yes"
+		_font_scale = line.to_float()
+		var line2 = save.get_line()
+		_screen_reader_enabled = line2 == "true" or line2 == "1" or line2 == "yes"
 		save.close()
 
 
 func _save_settings() -> void:
-	var dir = DirectoryAccess.create(DirectoryAccess.ACCESS_RESOURCES)
-	if dir.dir_exists("user://"):
+	var dir = DirAccess.open("user://")
+	if dir:
 		var save = FileAccess.open("user://accessibility.save", FileAccess.WRITE)
 		if save:
 			save.store_line(str(_high_contrast))

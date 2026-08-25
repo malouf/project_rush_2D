@@ -93,7 +93,8 @@ func _apply_damage(direction: Vector2) -> void:
 
 
 func _finish() -> void:
-	_is_on_cooldown = false
+	# Cooldown is managed by _physics_process timer
+	pass
 
 
 func _physics_process(delta: float) -> void:

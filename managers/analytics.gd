@@ -3,7 +3,7 @@
 #  Pattern: Buffered event queue with periodic flush                            #
 ##============================================================================##
 
-class_name Analytics
+class_name AnalyticsBase
 extends Node
 
 signal event_tracked(event_name: String, params: Dictionary)

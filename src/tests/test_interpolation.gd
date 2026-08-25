@@ -30,9 +30,6 @@ func test_physics_callback_called():
 	interp.target = target
 	# Reset position
 	interp.global_position = Vector2.ZERO
-	# Mock time to trigger physics process
-	Engine._process_physics_frames = func() { return 60 }
-	Engine._physics_process_delta = func() { return 0.016 }
 	# This test is conceptual since we can't easily mock _process
 	# The important thing is that interpolation.gd is present and has proper structure
 	assert_true(true)

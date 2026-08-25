@@ -4,7 +4,7 @@
 #  Server-authoritative with client input prediction                         #
 ##============================================================================##
 
-class_name GameNetwork
+class_name GameNetworkBase
 extends Node
 
 ## Constants (from multiplayer_bomber pattern)
@@ -44,19 +44,21 @@ func _ready() -> void:
 ## --- Public API ---
 
 func host_game() -> Error:
-	var error = ENetMultiplayerPeer.create_server(DEFAULT_PORT, MAX_PEERS)
+	_peer = ENetMultiplayerPeer.new()
+	var error = _peer.create_server(DEFAULT_PORT, MAX_PEERS)
 	if error != OK:
 		return error
-	multiplayer.multiplayer_peer = peer
+	multiplayer.multiplayer_peer = _peer
 	players[1] = player_info
 	player_list_changed.emit()
 	return OK
 
 func join_game(ip: String) -> Error:
-	var error = ENetMultiplayerPeer.create_client(ip, DEFAULT_PORT)
+	_peer = ENetMultiplayerPeer.new()
+	var error = _peer.create_client(ip, DEFAULT_PORT)
 	if error != OK:
 		return error
-	multiplayer.multiplayer_peer = peer
+	multiplayer.multiplayer_peer = _peer
 	return OK
 
 func leave_game() -> void:
@@ -71,15 +73,13 @@ func leave_game() -> void:
 func begin_game() -> void:
 	assert(multiplayer.is_server(), "Only server can start game")
 	match_starting.emit()
-	# RPC to all peers to load match scene
-	_rpc_id("client_load_match", NetworkPeerID(1))
-	# Server also loads
-	client_load_match(NetworkPeerID(1))
+	rpc_id(1, "client_load_match", "res://scenes/match/match.tscn")
+	client_load_match("res://scenes/match/match.tscn")
 
 ## --- Connection callbacks ---
 
 func _on_peer_connected(id: int) -> void:
-	_register_player.rpc_id(id, player_info)
+	rpc_id(id, "_register_player", player_info)
 
 func _on_peer_disconnected(id: int) -> void:
 	if players.has(id):
@@ -114,7 +114,7 @@ func client_load_match(path: String) -> void:
 	if error != OK:
 		game_error.emit("Failed to load match scene: %s" % path)
 		return
-	player_loaded.rpc_id(multiplayer.get_remote_sender_id())
+	rpc_id(1, "player_loaded")
 
 @rpc("any_peer", "reliable")
 func player_loaded() -> void:
@@ -134,26 +134,23 @@ func set_player_info(info: Dictionary) -> void:
 
 @rpc("call_local", "reliable")
 func request_spawn(hero_type: String, pos: Vector2) -> void:
-	# Server validates and spawns
 	if multiplayer.is_server():
 		var hero_node = spawn_hero(hero_type, pos)
-		_spawned_hero.rpc_id(1, hero_node)  # broadcast to clients
+		if hero_node:
+			rpc("%s_spawned" % hero_type, hero_node.get_path())
 
 @rpc("any_peer", "reliable")
-func _spawned_hero(hero_node_path: String) -> void:
-	var hero = get_node(hero_node_path) if get_node_path(hero_node_path) != "" else null
+func _spawned_hero(hero_node_path: NodePath) -> void:
+	var hero = get_node_or_null(hero_node_path)
 	if hero:
-		# Client-side initialization
 		hero.modulate = Color(1, 1, 1, 1)
 
 ## --- Server-side spawn logic ---
 
 func spawn_hero(hero_type: String, pos: Vector2) -> Node:
 	var hero_path: String = "res://scenes/%s/%s.tscn" % [hero_type, hero_type]
-	var hero_node = get_tree().create_scene(hero_path)
+	var hero_node = get_tree().get_nodes_in_group("world")[0].get_node_or_null(hero_type)
 	if hero_node:
 		hero_node.global_position = pos
-		# Add to world / scene tree
-		get_tree().root.add_child(hero_node)
 		return hero_node
 	return null

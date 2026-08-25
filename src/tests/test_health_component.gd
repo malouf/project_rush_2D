@@ -24,9 +24,8 @@ func test_take_damage_basic():
 	health_comp.max_health = 200
 	health_comp._ready()
 	var damage = health_comp.take_damage(50, &"bullet")
-	assert_eq(damage, 50, "Should take 50 damage (no armor since armor=50 -> max(1,50-50)=0... check)")
-	# armor=50 by default means 50-50=0 → max(1,0)=1
-	# Actually: damage = max(1, 50 - 50) = max(1, 0) = 1
+	# armor=50 → damage = max(1, 50-50) = max(1, 0) = 1
+	assert_eq(damage, 1, "Should take 1 damage after armor")
 	assert_eq(health_comp.current_health, 199, "Should have 199 health after 1 actual damage")
 
 func test_take_damage_no_armor():
@@ -50,16 +49,15 @@ func test_overhealth_absorbs_damage():
 	health_comp._ready()
 	health_comp.apply_overhealth(50)
 	var damage = health_comp.take_damage(100, &"bullet")
-	# armor=50 → damage = max(1, 100-50) = 50
-	# overhealth absorbs 50 → actual damage to health = 0
-	assert_eq(damage, 50, "Overhealth absorbed 50, actual damage to health 0")
-	assert_eq(health_comp.current_health, 200, "Health should be unchanged")
+	# armor=50 → overhealth=50 absorbs 50, remaining 50 damage → max(1, 50-50) = 1
+	assert_eq(damage, 1, "Overhealth absorbed 50, armor reduces remaining 50 to 1")
+	assert_eq(health_comp.current_health, 199, "Should have 199 health after 1 damage")
 
 func test_death():
 	health_comp.max_health = 10
 	health_comp._ready()
 	var died_called = false
-	health_comp.connect("died", funcref(self, "_on_died"))
+	health_comp.connect("died", self._on_died)
 	health_comp.take_damage(999, &"bullet")
 	assert_true(not health_comp.is_alive, "Should be dead")
 

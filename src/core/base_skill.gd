@@ -182,3 +182,18 @@ func _physics_process(delta: float) -> void:
 	if _is_charging and targeting_mode == TargetingMode.DRAG_TO_AIM:
 		# Could update a UI indicator here
 		pass
+
+
+## Apply cast FX (visual/sound feedback)
+func _apply_cast_fx(caster: BaseHero, target_position: Vector2) -> void:
+	_play_cast_fx(caster, target_position)
+
+
+## Apply hitscan damage
+func _apply_hitscan(caster: BaseHero, target_position: Vector2, target_hero: BaseHero) -> void:
+	_apply_hitscan_with_dir(caster, (target_position - caster.global_position).normalized(), target_hero)
+
+
+## Spawn a projectile
+func _spawn_projectile(caster: BaseHero, target_position: Vector2) -> void:
+	_spawn_projectile_with_dir(caster, (target_position - caster.global_position).normalized(), 1.0)
