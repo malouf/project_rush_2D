@@ -1,108 +1,117 @@
-; Engine configuration file for Project Rush 2D
-; Auto-generated from adapted librerama + isometric demo settings
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
 
-config_version = 5
+config_version=5
 
 [application]
-config/name = "Project Rush 2D"
-config/description = "Mobile 2D isometric hero-shooter (4v4) — Phase 1 scaffold"
-config/features = PackedStringArray("4.7", "Mobile", "2D", "Isometric")
-run/main_scene = "res://scenes/main.tscn"
-config/icon = "res://assets/themes/icon.png"
+
+config/name="Project Rush 2D"
+config/description="Mobile 2D isometric hero-shooter (4v4) — Phase 1 scaffold"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "Mobile")
+config/icon="res://assets/themes/icon.png"
 
 [autoload]
-GameManager = "res://managers/game_manager.gd"
-EventBus = "res://managers/event_bus.gd"
-GameNetwork = "res://managers/game_network.gd"
-Analytics = "res://managers/analytics.gd"
+
+GameManager="res://managers/game_manager.gd"
+EventBus="res://managers/event_bus.gd"
+GameNetwork="res://managers/game_network.gd"
+Analytics="res://managers/analytics.gd"
 
 [debug]
-gdscript/warnings/untyped_declaration = 1
-gdscript/warnings/unsafe_cast = 1
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/unsafe_cast=1
 
 [display]
-window/size/viewport_width = 1920
-window/size/viewport_height = 1080
-window/stretch/mode = "canvas_items"
-window/stretch/aspect = "keep_height"
 
-[physics]
-common/physics_ticks_per_second = 60
-common/physics_interpolation = true
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
 
-[rendering]
-renderer/rendering_method = "mobile"
-renderer/rendering_method.mobile = "gl_compatibility"
-rendering/quality/2d/use_pixel_snap = false
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [game_settings]
-pause_focus_lost = true
-mute_focus_lost = false
-show_community_warning = true
+
+pause_focus_lost=true
+mute_focus_lost=false
+show_community_warning=true
 
 [input]
-move_up = {
-	"deadzone": 0.2,
-	"events": [
-		Object(InputEventKey,"keycode":87,"pressed":false),
-		Object(InputEventKey,"physical_keycode":87,"pressed":false),
-		Object(InputEventJoypadMotion,"axis":1,"axis_value":-1.0),
-	]
+
+ui_accept={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":true,"script":null)
+]
 }
-move_down = {
-	"deadzone": 0.2,
-	"events": [
-		Object(InputEventKey,"keycode":83,"pressed":false),
-		Object(InputEventJoypadMotion,"axis":1,"axis_value":1.0),
-	]
+ui_cancel={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194305,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
+]
 }
-move_left = {
-	"deadzone": 0.2,
-	"events": [
-		Object(InputEventKey,"keycode":65,"pressed":false),
-		Object(InputEventJoypadMotion,"axis":0,"axis_value":-1.0),
-	]
+move_up={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":87,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
+]
 }
-move_right = {
-	"deadzone": 0.2,
-	"events": [
-		Object(InputEventKey,"keycode":68,"pressed":false),
-		Object(InputEventJoypadMotion,"axis":0,"axis_value":1.0),
-	]
+move_down={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":83,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
+]
 }
-tap_to_cast = {
-	"deadzone": 0.1,
-	"events": [
-		Object(InputEventMouseButton,"button_index":1,"pressed":false),
-		Object(InputEventScreenTouch,"pressed":false),
-	]
+move_left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":65,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
+]
 }
-drag_to_aim = {
-	"deadzone": 0.1,
-	"events": [
-		Object(InputEventMouseMotion,"relative":Vector2(0,0)),
-		Object(InputEventScreenDrag,"relative":Vector2(0,0)),
-	]
+move_right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":68,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
+]
 }
-ui_accept = {
-	"deadzone": 0.5,
-	"events": [
-		Object(InputEventKey,"keycode":4194309,"pressed":false),
-		Object(InputEventJoypadButton,"button_index":0,"pressed":true),
-	]
+tap_to_cast={
+"deadzone": 0.1,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":32,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+, Object(InputEventScreenTouch,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"index":0,"position":Vector2(0, 0),"canceled":false,"pressed":false,"double_tap":false,"script":null)
+]
 }
-ui_cancel = {
-	"deadzone": 0.5,
-	"events": [
-		Object(InputEventKey,"keycode":4194305,"pressed":false),
-		Object(InputEventJoypadButton,"button_index":1,"pressed":true),
-	]
+drag_to_aim={
+"deadzone": 0.1,
+"events": [Object(InputEventMouseMotion,"resource_local_to_scene":false,"resource_name":"","device":32,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"tilt":Vector2(0, 0),"pressure":0.0,"pen_inverted":false,"relative":Vector2(0, 0),"screen_relative":Vector2(0, 0),"velocity":Vector2(0, 0),"screen_velocity":Vector2(0, 0),"script":null)
+, Object(InputEventScreenDrag,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"index":0,"tilt":Vector2(0, 0),"pressure":0.0,"pen_inverted":false,"position":Vector2(0, 0),"relative":Vector2(0, 0),"screen_relative":Vector2(0, 0),"velocity":Vector2(0, 0),"screen_velocity":Vector2(0, 0),"script":null)
+]
 }
 
 [layer_names]
-2d_physics/dangerous = "Hero"
-2d_physics/hurtbox = "HurtBox"
-2d_physics/hitbox = "HitBox"
-2d_render/heroes = "Heroes"
-2d_render/effects = "Effects"
-2d_render/ui = "UI"
+
+2d_physics/dangerous="Hero"
+2d_physics/hurtbox="HurtBox"
+2d_physics/hitbox="HitBox"
+2d_render/heroes="Heroes"
+2d_render/effects="Effects"
+2d_render/ui="UI"
+
+[physics]
+
+common/physics_interpolation=true
+
+[rendering]
+
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="gl_compatibility"
+rendering/quality/2d/use_pixel_snap=false
